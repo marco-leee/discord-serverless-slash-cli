@@ -47,3 +47,6 @@ To sync commands in the development environment, copy `.env.example` to `develop
 
 ### Production
 To sync to production, copy `.env.example` to `.env` and fill in the variables, then run `npm run sync`. To deploy the worker, run `npm run deploy`.
+
+
+Discord bot is in MC server, personal assistant
