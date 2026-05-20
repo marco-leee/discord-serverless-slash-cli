@@ -1,5 +1,6 @@
+import { CloudflareWorkerServer, SlashCreator } from 'slash-create/web';
 import { commands } from './commands';
-import { SlashCreator, CloudflareWorkerServer } from 'slash-create/web';
+import { setEnv } from './env';
 
 const cfServer = new CloudflareWorkerServer();
 let creator: SlashCreator | undefined;
@@ -24,6 +25,7 @@ function makeCreator(env: Env) {
 
 export default {
   async fetch(request: Request, env: Env, ctx: ExecutionContext) {
+    setEnv(env);
     if (!creator) makeCreator(env);
     return cfServer.fetch(request, env, ctx);
   }

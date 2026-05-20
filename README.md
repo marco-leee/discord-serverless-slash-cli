@@ -50,3 +50,6 @@ To sync to production, copy `.env.example` to `.env` and fill in the variables, 
 
 
 Discord bot is in MC server, personal assistant
+curl -i -X POST "https://discord-serverless-slash-cli.marco-leee.workers.dev/" -H "Content-Type: application/json" -d '{"type":1}'
+
+curl -i -X POST "http://localhost:8787/" -H "Content-Type: application/json" -d '{"type":1}'
