@@ -97,6 +97,11 @@ function formatPremortem(result: PremortemResult): string {
   return sections.filter(Boolean).join('\n\n');
 }
 
+export async function executePremortem(subject: string, context?: string): Promise<string> {
+  const result = await runPremortem(subject, context);
+  return formatPremortem(result);
+}
+
 async function runPremortem(subject: string, context?: string): Promise<PremortemResult> {
   const userPrompt = context ? `Subject: ${subject}\n\nAdditional context:\n${context}` : subject;
 

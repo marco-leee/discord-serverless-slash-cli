@@ -158,6 +158,35 @@ function getMetricsFromOptions(options: Record<string, unknown>): EnergyMetrics 
   };
 }
 
+export interface AtomicTaskCliResult {
+  summary: string;
+  fullOutput: string;
+  suggestedOutput?: string;
+}
+
+export async function executeAtomicTask(
+  task: string,
+  steps: number,
+  metrics?: EnergyMetrics | null
+): Promise<AtomicTaskCliResult> {
+  const atomicTasks = await breakdownTask(task, steps);
+  const fullOutput = formatAtomicTasks(atomicTasks);
+
+  let summary = `Task: ${task}\nSteps generated: ${atomicTasks.length}`;
+  let suggestedOutput: string | undefined;
+
+  if (metrics) {
+    const classification = DefaultEnergyClassificationStrategy.classify(metrics);
+    summary += `\nEnergy level: ${capitalizeLevel(classification.energy_level)}`;
+    summary += `\nActivation: ${classification.activation_score}`;
+    summary += `\nCognitive control: ${classification.cognitive_control_score}`;
+    const sortedTasks = sortByEnergyLevel(atomicTasks);
+    suggestedOutput = formatAtomicTasks(sortedTasks, classification.energy_level);
+  }
+
+  return { summary, fullOutput, suggestedOutput };
+}
+
 async function breakdownTask(task: string, steps: number): Promise<AtomicTask[]> {
   const result = await structuredCompletion({
     systemPrompt: PROMPT.replace('{steps}', String(steps)),
