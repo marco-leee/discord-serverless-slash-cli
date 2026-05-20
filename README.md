@@ -46,4 +46,4 @@ To sync commands in the development environment, copy `.env.example` to `develop
 > Note: When you create a command, make sure to include it in the array of commands in `./src/commands/index.ts`.
 
 ### Production
-To sync to production, copy `.env.example` to `.env` and fill in the variables, then run `npm run sync`. To publish code to a worker, run `npm run deploy`.
+To sync to production, copy `.env.example` to `.env` and fill in the variables, then run `npm run sync`. To deploy the worker, run `npm run deploy`.

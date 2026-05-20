@@ -1,1 +1,3 @@
-export const commands = [require('./commands/hello')];
+import hello from './commands/hello';
+
+export const commands = [hello];
